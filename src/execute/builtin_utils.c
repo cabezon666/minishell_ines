@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inpastor <inpastor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ewiese-m <ewiese-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:08:29 by inpastor          #+#    #+#             */
-/*   Updated: 2025/07/27 14:43:57 by inpastor         ###   ########.fr       */
+/*   Updated: 2025/07/27 18:11:56 by ewiese-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ static int	execute_builtin_part2(t_mini *mini, t_cmd *cmd, char *input)
 	else if (ft_strcmp(cmd->first_cmd, "unset") == 0)
 		ret = ft_unset(mini, cmd->split_cmd);
 	else if (ft_strcmp(cmd->first_cmd, "exit") == 0)
+	{
 		ft_exit(mini, cmd->split_cmd, input);
+		ret = mini->exit_code;
+	}
 	return (ret);
 }
 
@@ -65,8 +68,14 @@ static int	execute_builtin_part1(t_mini *mini, t_cmd *cmd, char *input)
 int	execute_builtin(t_mini *mini, t_cmd *cmd, char *input)
 {
 	int	ret;
+	int	old_exit_code;
 
+	old_exit_code = mini->exit_code;
 	ret = execute_builtin_part1(mini, cmd, input);
+	if (ft_strcmp(cmd->first_cmd, "exit") == 0 && ret == old_exit_code)
+	{
+		return (ret);
+	}
 	mini->exit_code = ret;
 	return (ret);
 }
