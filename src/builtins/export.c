@@ -6,7 +6,7 @@
 /*   By: ewiese-m <ewiese-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:08:29 by inpastor          #+#    #+#             */
-/*   Updated: 2025/07/27 17:45:41 by ewiese-m         ###   ########.fr       */
+/*   Updated: 2025/07/27 18:03:55 by ewiese-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static int	valid_identifier(const char *arg)
 			return (0);
 		i++;
 	}
+	if (i == 0)
+		return (0);
 	return (1);
 }
 
@@ -50,18 +52,40 @@ static int	process_var_assignment(t_mini *mini, char *arg, char *eq)
 	value = eq + 1;
 	new_var = ft_strjoin3(arg, "=", value);
 	*eq = '=';
+	if (!new_var)
+		return (1);
 	if (pos != -1)
 	{
 		return (update_existing_var(mini, pos, new_var));
 	}
-	else if (add_to_env(mini, new_var))
-	{
-		free(new_var);
-		return (1);
-	}
 	else
 	{
+		if (add_to_env(mini, new_var))
+		{
+			free(new_var);
+			return (1);
+		}
 		free(new_var);
+	}
+	return (0);
+}
+
+static int	process_single_export(t_mini *mini, char *arg)
+{
+	char	*eq;
+
+	if (!valid_identifier(arg))
+	{
+		ft_putstr_fd("minishell: export: `", STDERR_FILENO);
+		ft_putstr_fd(arg, STDERR_FILENO);
+		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+		return (1);
+	}
+	eq = ft_strchr(arg, '=');
+	if (eq)
+	{
+		if (process_var_assignment(mini, arg, eq))
+			return (1);
 	}
 	return (0);
 }
@@ -69,7 +93,6 @@ static int	process_var_assignment(t_mini *mini, char *arg, char *eq)
 int	ft_export(t_mini *mini, char **args)
 {
 	int i;
-	char *eq;
 	int exit_code;
 
 	i = 1;
@@ -78,22 +101,8 @@ int	ft_export(t_mini *mini, char **args)
 		return (export_no_args(mini));
 	while (args[i])
 	{
-		if (!valid_identifier(args[i]))
-		{
-			ft_putstr_fd("minishell: export: `", STDERR_FILENO);
-			ft_putstr_fd(args[i], STDERR_FILENO);
-			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+		if (process_single_export(mini, args[i]) != 0)
 			exit_code = 1;
-		}
-		else
-		{
-			eq = ft_strchr(args[i], '=');
-			if (eq)
-			{
-				if (process_var_assignment(mini, args[i], eq))
-					exit_code = 1;
-			}
-		}
 		i++;
 	}
 	return (exit_code);

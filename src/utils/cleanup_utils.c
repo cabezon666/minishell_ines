@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inpastor <inpastor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ewiese-m <ewiese-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:08:29 by inpastor          #+#    #+#             */
-/*   Updated: 2025/07/27 14:45:38 by inpastor         ###   ########.fr       */
+/*   Updated: 2025/07/27 18:06:11 by ewiese-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	free_per_command(t_mini *mini)
 		return ;
 	free_list_cmd(&mini->cmd);
 	mini->fd = 0;
-	mini->exit_code = 0;
+	//mini->exit_code = 0;
 }
 
 static void	close_mini_fd(t_mini *mini)
