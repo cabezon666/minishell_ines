@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inpastor <inpastor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ewiese-m <ewiese-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:54:47 by inpastor          #+#    #+#             */
-/*   Updated: 2025/07/27 14:44:06 by inpastor         ###   ########.fr       */
+/*   Updated: 2025/07/27 17:58:28 by ewiese-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ char	*env_value(t_mini *mini, char *var_name)
 
 void	expand_cmd_args(t_mini *mini, t_cmd *cmd)
 {
+	// This function should NOT be called!
+	// All expansion should happen during parsing in process_arg
+	// Commenting out to prevent double expansion
+	(void)mini;
+	(void)cmd;
+	return;
+	
+	/*
 	int		i;
 	char	*expanded;
 
@@ -59,4 +67,5 @@ void	expand_cmd_args(t_mini *mini, t_cmd *cmd)
 		}
 		i++;
 	}
+	*/
 }

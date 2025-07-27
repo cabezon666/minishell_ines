@@ -6,7 +6,7 @@
 /*   By: ewiese-m <ewiese-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 02:18:25 by inpastor          #+#    #+#             */
-/*   Updated: 2025/07/27 17:45:14 by ewiese-m         ###   ########.fr       */
+/*   Updated: 2025/07/27 17:55:26 by ewiese-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,14 @@ static char	*process_quoted_section(t_mini *mini, char *raw_arg, int *i,
 	if (!tmp)
 		return (NULL);
 	if (quote_char == '"')
+	{
 		result = expand_env_vars(mini, tmp);
+		free(tmp);
+	}
 	else
-		result = ft_strdup(tmp);
-	free(tmp);
+	{
+		result = tmp;
+	}
 	if (*i < len)
 		(*i)++;
 	return (result);
@@ -114,25 +118,25 @@ char	*process_arg(t_mini *mini, char *raw_arg, int len)
 	char *arg;
 	char *tmp;
 	char quote_char;
-
-	int has_quotes = 0;
-	int i = 0;
+	int has_quotes;
+	int i;
+	has_quotes = 0;
+	i = 0;
 	while (i < len)
 	{
 		if (raw_arg[i] == '"' || raw_arg[i] == '\'')
 			has_quotes++;
 		i++;
 	}
-
 	if (has_quotes > 2 || (has_quotes > 0 && (raw_arg[0] != '"'
 				&& raw_arg[0] != '\'')))
 		return (concatenate_sections(mini, raw_arg, len));
-
 	arg = ft_substr(raw_arg, 0, len);
 	if (!arg)
 		return (NULL);
-	if ((arg[0] == '"' && arg[len - 1] == '"') || (arg[0] == '\'' && arg[len
-			- 1] == '\''))
+
+	if (len >= 2 && ((arg[0] == '"' && arg[len - 1] == '"') || (arg[0] == '\''
+				&& arg[len - 1] == '\'')))
 	{
 		quote_char = arg[0];
 		arg = handle_quoted_arg(mini, arg, quote_char);
