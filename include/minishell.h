@@ -6,7 +6,7 @@
 /*   By: ewiese-m <ewiese-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:00:35 by ewiese-m          #+#    #+#             */
-/*   Updated: 2025/07/27 03:25:19 by ewiese-m         ###   ########.fr       */
+/*   Updated: 2025/07/27 18:37:44 by ewiese-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,8 @@ char				**get_path(char **envp);
 void				parser(t_mini *mini, char *line);
 char				**split_args_quote_aware(t_mini *mini, char *cmd_str);
 char				*process_arg(t_mini *mini, char *raw_arg, int len);
+char	*concatenate_sections(t_mini *mini, char *raw_arg, int len);
+		// ADD THIS LINE
 int					validate_quotes(const char *line);
 
 void				setup_signals(void);

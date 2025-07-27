@@ -6,7 +6,7 @@
 /*   By: ewiese-m <ewiese-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:54:47 by inpastor          #+#    #+#             */
-/*   Updated: 2025/07/27 17:58:28 by ewiese-m         ###   ########.fr       */
+/*   Updated: 2025/07/27 18:46:41 by ewiese-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,29 +43,36 @@ char	*env_value(t_mini *mini, char *var_name)
 
 void	expand_cmd_args(t_mini *mini, t_cmd *cmd)
 {
-	// This function should NOT be called!
-	// All expansion should happen during parsing in process_arg
-	// Commenting out to prevent double expansion
 	(void)mini;
 	(void)cmd;
-	return;
-	
-	/*
-	int		i;
-	char	*expanded;
-
-	if (!cmd || !cmd->split_cmd)
-		return ;
-	i = 0;
-	while (cmd->split_cmd[i])
-	{
-		expanded = expand_env_vars(mini, cmd->split_cmd[i]);
-		if (expanded)
-		{
-			free(cmd->split_cmd[i]);
-			cmd->split_cmd[i] = expanded;
-		}
-		i++;
-	}
-	*/
+	return ;
 }
+
+/*
+void	expand_cmd_args(t_mini *mini, t_cmd *cmd)
+{
+int		i;
+char	*expanded;
+
+// This function should NOT be called!
+// All expansion should happen during parsing in process_arg
+// Commenting out to prevent double expansion
+(void)mini;
+(void)cmd;
+return ;
+if (!cmd || !cmd->split_cmd)
+	return ;
+i = 0;
+while (cmd->split_cmd[i])
+{
+	expanded = expand_env_vars(mini, cmd->split_cmd[i]);
+	if (expanded)
+	{
+		free(cmd->split_cmd[i]);
+		cmd->split_cmd[i] = expanded;
+	}
+	i++;
+}
+
+}
+*/

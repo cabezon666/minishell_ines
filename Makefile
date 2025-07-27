@@ -17,7 +17,7 @@ UTILS_OBJ_DIR = $(OBJ_DIR)/utils
 
 MAIN_SRC_FILES = main.c init.c env_utils.c path_env.c
 PARSE_SRC_FILES = parser.c signals.c redir_utils.c command_struct.c command_struct_utils.c \
-				  split_utils.c arg_parsing.c quote_handling.c
+				  split_utils.c arg_parsing.c quote_handling.c quote_handling_utils.c
 EXEC_SRC_FILES = execute.c execute_child.c execute_builtin.c redirections.c heredoc.c \
 				 env_var.c env_var_expand.c builtin_utils.c path_utils.c
 BUILT_SRC_FILES = cd.c cd_utils.c echo.c env.c exit.c export.c export_display.c export_env.c pwd.c unset.c

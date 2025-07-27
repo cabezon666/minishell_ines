@@ -6,7 +6,7 @@
 /*   By: ewiese-m <ewiese-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:08:39 by inpastor          #+#    #+#             */
-/*   Updated: 2025/07/27 18:09:37 by ewiese-m         ###   ########.fr       */
+/*   Updated: 2025/07/27 18:45:13 by ewiese-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,18 +79,15 @@ static int	get_exit_code(t_mini *mini, char **args)
 
 void	ft_exit(t_mini *mini, char **args, char *input)
 {
-	int exit_code;
+	int	exit_code;
 
 	ft_putendl_fd("exit", STDERR_FILENO);
-
 	exit_code = get_exit_code(mini, args);
-
 	if (exit_code == -1)
 	{
 		mini->exit_code = 1;
 		return ;
 	}
-
 	cleanup(mini, &input);
 	exit(exit_code);
 }

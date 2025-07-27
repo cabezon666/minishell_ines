@@ -6,7 +6,7 @@
 /*   By: ewiese-m <ewiese-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:08:29 by inpastor          #+#    #+#             */
-/*   Updated: 2025/07/27 18:03:55 by ewiese-m         ###   ########.fr       */
+/*   Updated: 2025/07/27 18:45:22 by ewiese-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ static int	process_single_export(t_mini *mini, char *arg)
 
 int	ft_export(t_mini *mini, char **args)
 {
-	int i;
-	int exit_code;
+	int	i;
+	int	exit_code;
 
 	i = 1;
 	exit_code = 0;
