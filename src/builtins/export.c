@@ -6,7 +6,7 @@
 /*   By: ewiese-m <ewiese-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:08:29 by inpastor          #+#    #+#             */
-/*   Updated: 2025/07/27 17:31:48 by ewiese-m         ###   ########.fr       */
+/*   Updated: 2025/07/27 17:45:41 by ewiese-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ static int	valid_identifier(const char *arg)
 	int	i;
 
 	i = 0;
-	if (!arg || !*arg || (!ft_isalpha(arg[0]) && arg[0] != '_'))
+	if (!arg || !*arg)
+		return (0);
+	if (arg[0] == '=')
+		return (0);
+	if (!ft_isalpha(arg[0]) && arg[0] != '_')
 		return (0);
 	while (arg[i] && arg[i] != '=')
 	{
@@ -25,8 +29,6 @@ static int	valid_identifier(const char *arg)
 			return (0);
 		i++;
 	}
-	if (i == 0)
-		return (0);
 	return (1);
 }
 
@@ -66,9 +68,9 @@ static int	process_var_assignment(t_mini *mini, char *arg, char *eq)
 
 int	ft_export(t_mini *mini, char **args)
 {
-	int		i;
-	char	*eq;
-	int		exit_code;
+	int i;
+	char *eq;
+	int exit_code;
 
 	i = 1;
 	exit_code = 0;
@@ -78,9 +80,9 @@ int	ft_export(t_mini *mini, char **args)
 	{
 		if (!valid_identifier(args[i]))
 		{
-			ft_putstr_fd("export: ", STDERR_FILENO);
+			ft_putstr_fd("minishell: export: `", STDERR_FILENO);
 			ft_putstr_fd(args[i], STDERR_FILENO);
-			ft_putstr_fd(" : not a valid identifier\n", STDERR_FILENO);
+			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 			exit_code = 1;
 		}
 		else

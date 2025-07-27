@@ -6,7 +6,7 @@
 /*   By: ewiese-m <ewiese-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:06:07 by inpastor          #+#    #+#             */
-/*   Updated: 2025/07/27 17:34:27 by ewiese-m         ###   ########.fr       */
+/*   Updated: 2025/07/27 17:46:53 by ewiese-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	ft_echo(t_mini *mini, char **arg)
 	{
 		if (write(STDOUT_FILENO, arg[i], ft_strlen(arg[i])) == -1)
 			return (1);
-
 		if (arg[i + 1] && write(STDOUT_FILENO, " ", 1) == -1)
 			return (1);
 		i++;
@@ -57,6 +56,5 @@ int	ft_echo(t_mini *mini, char **arg)
 
 	if (nl && write(STDOUT_FILENO, "\n", 1) == -1)
 		return (1);
-
 	return (0);
 }

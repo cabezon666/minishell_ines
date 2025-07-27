@@ -6,7 +6,7 @@
 /*   By: ewiese-m <ewiese-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:15:01 by inpastor          #+#    #+#             */
-/*   Updated: 2025/07/27 17:31:10 by ewiese-m         ###   ########.fr       */
+/*   Updated: 2025/07/27 17:46:01 by ewiese-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,16 @@ static char	*get_cd_path(t_mini *mini, char **args)
 static int	update_pwd_vars(t_mini *mini)
 {
 	char	cwd[PATH_MAX];
+	char	*old_pwd;
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
 		perror("minishell: cd: getcwd");
 		return (1);
 	}
-	update_env_var(mini, "OLDPWD", get_env_value(mini->env, "PWD"));
+	old_pwd = get_env_value(mini->env, "PWD");
+	if (old_pwd)
+		update_env_var(mini, "OLDPWD", old_pwd);
 	update_env_var(mini, "PWD", cwd);
 	return (0);
 }
@@ -69,7 +72,10 @@ int	ft_cd(t_mini *mini, char **args)
 	if (chdir(path) != 0)
 	{
 		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
-		perror(path);
+		ft_putstr_fd(path, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putstr_fd(strerror(errno), STDERR_FILENO);
+		ft_putstr_fd("\n", STDERR_FILENO);
 		return (1);
 	}
 	return (update_pwd_vars(mini));
